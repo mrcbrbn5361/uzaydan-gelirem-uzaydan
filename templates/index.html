@@ -155,12 +155,11 @@
         video {
             width: 100%;
             border-radius: 0 0 20px 20px;
-            background: #000;
             transition: all 0.3s ease;
         }
 
         video:hover {
-            transform: scale(1.02);
+            transform: none;
         }
 
         .video-controls {
@@ -247,11 +246,11 @@
 
         /* Video Player Özelleştirmeleri */
         video::-webkit-media-controls-panel {
-            background: var(--secondary-gradient);
+            background: transparent;
         }
 
         video::-webkit-media-controls-play-button {
-            background: var(--accent-color);
+            background: transparent;
             border-radius: 50%;
         }
 
@@ -344,6 +343,7 @@
                         </div>
                         <video controls preload="metadata" class="video-player">
                             <source src="{{ video_data[selected_lang].url }}" type="video/mp4">
+                            <track kind="captions" label="{{ language_names.get(selected_lang, selected_lang|upper) }}">
                             Tarayıcınız video elementini desteklemiyor.
                         </video>
                     </div>

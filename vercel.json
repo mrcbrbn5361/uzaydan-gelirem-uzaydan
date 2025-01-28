@@ -12,6 +12,14 @@
     ],
     "routes": [
         {
+            "src": "/video/(.*)",
+            "dest": "app.py"
+        },
+        {
+            "src": "/static/videos/(.*)",
+            "dest": "/video/$1"
+        },
+        {
             "src": "/static/(.*)",
             "dest": "/static/$1",
             "headers": {
