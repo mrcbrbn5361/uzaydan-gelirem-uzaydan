@@ -43,8 +43,8 @@ last_scan_time = None
 def get_video_url(filename):
     """Video URL'sini oluştur"""
     if os.environ.get('VERCEL_URL'):
-        return f"https://{os.environ.get('VERCEL_URL')}/video/{filename}"
-    return url_for('serve_video', filename=filename)
+        return f"https://{os.environ.get('VERCEL_URL')}/static/videos/{filename}"
+    return url_for('static', filename=f'videos/{filename}')
 
 def get_absolute_video_path():
     """Video dizininin mutlak yolunu al"""
