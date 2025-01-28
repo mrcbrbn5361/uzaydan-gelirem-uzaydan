@@ -2,49 +2,49 @@
 const videos = {
     'uzaydan_gelirem': {
         tr: {
-            url: '/static/videos/uzaydan_gelirem_tr.mp4',
+            url: 'static/videos/uzaydan_gelirem_tr.mp4',
             title: 'Uzaydan Gelirem (Türkçe)',
             duration: '0.0',
             size: '0.3'
         },
         en: {
-            url: '/static/videos/uzaydan_gelirem_en.mp4',
+            url: 'static/videos/uzaydan_gelirem_en.mp4',
             title: 'Uzaydan Gelirem (English)',
             duration: '0.0',
             size: '0.3'
         },
         ar: {
-            url: '/static/videos/uzaydan_gelirem_ar.mp4',
+            url: 'static/videos/uzaydan_gelirem_ar.mp4',
             title: 'Uzaydan Gelirem (العربية)',
             duration: '0.0',
             size: '0.3'
         },
         es: {
-            url: '/static/videos/uzaydan_gelirem_es.mp4',
+            url: 'static/videos/uzaydan_gelirem_es.mp4',
             title: 'Uzaydan Gelirem (Español)',
             duration: '0.0',
             size: '0.3'
         },
         hi: {
-            url: '/static/videos/uzaydan_gelirem_hi.mp4',
+            url: 'static/videos/uzaydan_gelirem_hi.mp4',
             title: 'Uzaydan Gelirem (हिन्दी)',
             duration: '0.0',
             size: '0.3'
         },
         pt: {
-            url: '/static/videos/uzaydan_gelirem_pt.mp4',
+            url: 'static/videos/uzaydan_gelirem_pt.mp4',
             title: 'Uzaydan Gelirem (Português)',
             duration: '0.0',
             size: '0.3'
         },
         ru: {
-            url: '/static/videos/uzaydan_gelirem_ru.mp4',
+            url: 'static/videos/uzaydan_gelirem_ru.mp4',
             title: 'Uzaydan Gelirem (Русский)',
             duration: '0.0',
             size: '0.3'
         },
         zh: {
-            url: '/static/videos/uzaydan_gelirem_zh.mp4',
+            url: 'static/videos/uzaydan_gelirem_zh.mp4',
             title: 'Uzaydan Gelirem (中文)',
             duration: '0.0',
             size: '0.3'
