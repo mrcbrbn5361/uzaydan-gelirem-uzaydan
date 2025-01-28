@@ -40,6 +40,9 @@ LANGUAGE_NAMES = {
 videos = {}
 last_scan_time = None
 
+# Video dosyalarının bulunduğu dizin
+VIDEO_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static', 'videos')
+
 def get_video_url(filename):
     """Video URL'sini oluştur"""
     if os.environ.get('VERCEL_URL'):
@@ -54,25 +57,16 @@ def get_absolute_video_path():
         base_dir = os.path.dirname(os.path.abspath(__file__))
         return os.path.join(base_dir, 'static', 'videos')
 
+@app.route('/')
+def index():
+    return app.send_static_file('index.html')
+
 @app.route('/static/videos/<path:filename>')
 def serve_video(filename):
-    """Video dosyalarını servis et"""
     try:
-        video_path = os.path.join('static', 'videos', filename)
-        if not os.path.exists(video_path):
-            logger.error(f"Video dosyası bulunamadı: {video_path}")
-            return "Video bulunamadı", 404
-
-        with open(video_path, 'rb') as video_file:
-            response = Response(video_file.read())
-            response.headers['Content-Type'] = 'video/mp4'
-            response.headers['Accept-Ranges'] = 'bytes'
-            response.headers['Cache-Control'] = 'public, max-age=31536000'
-            response.headers['Access-Control-Allow-Origin'] = '*'
-            return response
+        return send_from_directory(VIDEO_FOLDER, filename)
     except Exception as e:
-        logger.error(f"Video servis hatası: {str(e)}")
-        return f"Video servis edilemedi: {str(e)}", 500
+        return str(e), 500
 
 @lru_cache(maxsize=32)
 def get_video_duration(video_path):
@@ -197,18 +191,7 @@ def index():
 
 @app.route('/static/<path:path>')
 def serve_static(path):
-    try:
-        if path.startswith('videos/'):
-            filename = os.path.basename(path)
-            return serve_video(filename)
-        response = send_from_directory('static', path)
-        response.headers['Access-Control-Allow-Origin'] = '*'
-        response.headers['Access-Control-Allow-Methods'] = 'GET, OPTIONS'
-        response.headers['Access-Control-Allow-Headers'] = '*'
-        return response
-    except Exception as e:
-        logger.error(f"Statik dosya sunulurken hata: {str(e)}")
-        return f"Dosya bulunamadı: {path}", 404
+    return app.send_static_file(path)
 
 @app.after_request
 def add_header(response):
@@ -227,6 +210,6 @@ def add_header(response):
 application = app
 
 if __name__ == '__main__':
-    # Yerel geliştirme için
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port, debug=True) 
+    port = int(os.environ.get('PORT', 8080))
+    host = os.environ.get('HOST', '0.0.0.0')
+    app.run(host=host, port=port) 
