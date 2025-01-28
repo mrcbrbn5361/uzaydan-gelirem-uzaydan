@@ -13,11 +13,13 @@ Modern ve kullanıcı dostu bir video galerisi uygulaması. Farklı dillerdeki v
 - 🎬 Video kontrolleri ve bilgi gösterimi
 - 🔍 Detaylı video bilgileri (süre, boyut)
 - 🚀 Vercel ile kolay deployment
+- 🔓 Cross-Origin Resource Sharing (CORS) desteği
 
 ## 🛠️ Teknolojiler
 
 - Python 3.9+
 - Flask 3.0.0
+- Flask-CORS 4.0.0
 - OpenCV 4.9.0
 - Bootstrap 5
 - Font Awesome 6
@@ -31,6 +33,7 @@ python-dotenv==1.0.0
 opencv-python==4.9.0.80
 gunicorn==21.2.0
 Werkzeug==3.0.1
+flask-cors==4.0.0
 ```
 
 ## 🚀 Kurulum
@@ -81,6 +84,7 @@ git push
    PYTHONPATH=.
    FLASK_ENV=production
    FLASK_APP=app.py
+   CORS_ALLOW_ALL=true
    ```
 
 ## 📝 Notlar
@@ -93,6 +97,10 @@ git push
 - OpenCV gereksinimleri:
   - Windows: Visual C++ 2019 Redistributable
   - Linux: libgl1-mesa-glx
+- CORS Ayarları:
+  - Tüm domainlerden erişime izin verildi (*)
+  - Desteklenen metodlar: GET, POST, PUT, DELETE, OPTIONS
+  - Önbellek süresi: 1 yıl (31536000 saniye)
 
 ## 🤝 Katkıda Bulunma
 

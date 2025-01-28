@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, send_from_directory, url_for, send_file
+from flask_cors import CORS
 import os
 from functools import lru_cache
 from datetime import datetime
@@ -6,6 +7,13 @@ import logging
 import mimetypes
 
 app = Flask(__name__)
+CORS(app, resources={
+    r"/*": {
+        "origins": "*",
+        "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+        "allow_headers": ["Content-Type", "Authorization", "Access-Control-Allow-Credentials"]
+    }
+})
 
 # Mimetype tanımlamaları ekle
 mimetypes.add_type('video/mp4', '.mp4')
