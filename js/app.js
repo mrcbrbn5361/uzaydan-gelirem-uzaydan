@@ -1,6 +1,6 @@
 // Video verileri
 const videos = {
-    'uzaydan_gelirem': {
+    Uzaydan_Gelirem: {
         tr: {
             url: 'static/videos/uzaydan_gelirem_tr.mp4',
             title: 'Uzaydan Gelirem (Türkçe)',
@@ -110,12 +110,12 @@ function createVideoCard(video) {
     card.appendChild(info);
 
     // Video yüklenemezse hata mesajı göster
-    videoElement.onerror = (e) => {
-        console.error('Video yükleme hatası:', e);
+    videoElement.onerror = () => {
+        console.error('Video yüklenemedi:', video.url);
         videoContainer.innerHTML = `
             <div style="padding: 20px; text-align: center; color: #d93025;">
                 <p>Video yüklenemedi.</p>
-                <p>Hata: ${videoElement.error ? videoElement.error.message : 'Bilinmeyen hata'}</p>
+                <p>Tarayıcınız video elementini desteklemiyor olabilir.</p>
             </div>
         `;
     };
