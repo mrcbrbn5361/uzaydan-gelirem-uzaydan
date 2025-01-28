@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Galerisi</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Video Galerisi</h1>
+        
+        <div class="language-selector">
+            <label for="language">Video Dilini Seçin</label>
+            <select id="language" onchange="filterVideos()">
+                <option value="tr">Türkçe</option>
+                <option value="en">İngilizce</option>
+                <option value="ar">Arapça</option>
+                <option value="es">İspanyolca</option>
+                <option value="hi">Hintçe</option>
+                <option value="pt">Portekizce</option>
+                <option value="ru">Rusça</option>
+                <option value="zh">Çince</option>
+            </select>
+        </div>
+
+        <div id="video-gallery" class="video-gallery">
+            <!-- Videolar JavaScript ile buraya eklenecek -->
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html> 

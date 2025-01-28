@@ -1,0 +1,130 @@
+/* Genel stiller */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    background-color: #f0f2f5;
+    color: #333;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    color: #1a73e8;
+    margin-bottom: 30px;
+    font-size: 2.5em;
+}
+
+/* Dil seçici */
+.language-selector {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.language-selector label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #5f6368;
+}
+
+.language-selector select {
+    padding: 10px 20px;
+    font-size: 1em;
+    border: 2px solid #1a73e8;
+    border-radius: 5px;
+    background-color: white;
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.language-selector select:hover {
+    border-color: #174ea6;
+}
+
+/* Video galerisi */
+.video-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px 0;
+}
+
+.video-card {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.video-card:hover {
+    transform: translateY(-5px);
+}
+
+.video-container {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%; /* 16:9 aspect ratio */
+}
+
+.video-container video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.video-info {
+    padding: 15px;
+}
+
+.video-info h3 {
+    color: #1a73e8;
+    margin-bottom: 10px;
+}
+
+.video-info p {
+    color: #5f6368;
+    font-size: 0.9em;
+}
+
+/* Responsive tasarım */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    .video-gallery {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.8em;
+    }
+
+    .language-selector select {
+        width: 90%;
+        max-width: 300px;
+    }
+} 
