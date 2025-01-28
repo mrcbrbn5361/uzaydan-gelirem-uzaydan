@@ -2,49 +2,49 @@
 const videos = {
     'Uzaydan_Gelirem': {
         tr: {
-            url: 'videos/Uzaydan_Gelirem_tr.mp4',
+            url: 'static/videos/Uzaydan_Gelirem_tr.mp4',
             title: 'Uzaydan Gelirem (Türkçe)',
             duration: '0.0',
             size: '0.3'
         },
         en: {
-            url: 'videos/Uzaydan_Gelirem_en.mp4',
+            url: 'static/videos/Uzaydan_Gelirem_en.mp4',
             title: 'Uzaydan Gelirem (English)',
             duration: '0.0',
             size: '0.3'
         },
         ar: {
-            url: 'videos/Uzaydan_Gelirem_ar.mp4',
+            url: 'static/videos/Uzaydan_Gelirem_ar.mp4',
             title: 'Uzaydan Gelirem (العربية)',
             duration: '0.0',
             size: '0.3'
         },
         es: {
-            url: 'videos/Uzaydan_Gelirem_es.mp4',
+            url: 'static/videos/Uzaydan_Gelirem_es.mp4',
             title: 'Uzaydan Gelirem (Español)',
             duration: '0.0',
             size: '0.3'
         },
         hi: {
-            url: 'videos/Uzaydan_Gelirem_hi.mp4',
+            url: 'static/videos/Uzaydan_Gelirem_hi.mp4',
             title: 'Uzaydan Gelirem (हिन्दी)',
             duration: '0.0',
             size: '0.3'
         },
         pt: {
-            url: 'videos/Uzaydan_Gelirem_pt.mp4',
+            url: 'static/videos/Uzaydan_Gelirem_pt.mp4',
             title: 'Uzaydan Gelirem (Português)',
             duration: '0.0',
             size: '0.3'
         },
         ru: {
-            url: 'videos/Uzaydan_Gelirem_ru.mp4',
+            url: 'static/videos/Uzaydan_Gelirem_ru.mp4',
             title: 'Uzaydan Gelirem (Русский)',
             duration: '0.0',
             size: '0.3'
         },
         zh: {
-            url: 'videos/Uzaydan_Gelirem_zh.mp4',
+            url: 'static/videos/Uzaydan_Gelirem_zh.mp4',
             title: 'Uzaydan Gelirem (中文)',
             duration: '0.0',
             size: '0.3'
@@ -83,6 +83,8 @@ function createVideoCard(video) {
     const videoElement = document.createElement('video');
     videoElement.controls = true;
     videoElement.preload = 'metadata';
+    videoElement.playsInline = true;
+    videoElement.crossOrigin = 'anonymous';
     
     const source = document.createElement('source');
     source.src = video.url;
@@ -107,11 +109,12 @@ function createVideoCard(video) {
     card.appendChild(info);
 
     // Video yüklenemezse hata mesajı göster
-    videoElement.onerror = () => {
+    videoElement.onerror = (e) => {
+        console.error('Video yükleme hatası:', e);
         videoContainer.innerHTML = `
             <div style="padding: 20px; text-align: center; color: #d93025;">
-                <p>Video yüklenemedi.</p>
-                <p>Tarayıcınız video elementini desteklemiyor olabilir.</p>
+                <p>Video yüklenemedi: ${video.url}</p>
+                <p>Hata: ${videoElement.error ? videoElement.error.message : 'Bilinmeyen hata'}</p>
             </div>
         `;
     };
