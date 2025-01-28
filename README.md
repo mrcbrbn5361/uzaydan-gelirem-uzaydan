@@ -18,9 +18,9 @@ Modern ve kullanıcı dostu bir video galerisi uygulaması. Farklı dillerdeki v
 
 - Python 3.9+
 - Flask 3.0.0
+- OpenCV 4.9.0
 - Bootstrap 5
 - Font Awesome 6
-- OpenCV (video işleme)
 - Vercel (deployment)
 
 ## 📋 Gereksinimler
@@ -28,7 +28,7 @@ Modern ve kullanıcı dostu bir video galerisi uygulaması. Farklı dillerdeki v
 ```bash
 flask==3.0.0
 python-dotenv==1.0.0
-opencv-python-headless==4.9.0.80
+opencv-python==4.9.0.80
 gunicorn==21.2.0
 Werkzeug==3.0.1
 ```
@@ -90,6 +90,9 @@ git push
 - Vercel ücretsiz plan limitleri:
   - Toplam depolama: 100MB
   - Deployment başına dosya sayısı: 1000
+- OpenCV gereksinimleri:
+  - Windows: Visual C++ 2019 Redistributable
+  - Linux: libgl1-mesa-glx
 
 ## 🤝 Katkıda Bulunma
 
