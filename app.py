@@ -1,4 +1,4 @@
-from flask import Flask, render_template, send_from_directory, Response
+from flask import Flask, send_from_directory, Response
 from flask_cors import CORS
 import os
 import logging
@@ -25,7 +25,11 @@ LANGUAGE_NAMES = {
     'hi': 'Hintçe',
     'ar': 'Arapça',
     'es': 'İspanyolca',
-    'pt': 'Portekizce'
+    'pt': 'Portekizce',
+    'de': 'Almanca',
+    'fr': 'Fransızca',
+    'jp': 'Japonca',
+    'kor': 'Korece'
 }
 
 # Video klasörü
@@ -33,16 +37,25 @@ VIDEO_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static'
 
 @app.route('/')
 def index():
+    """Ana sayfayı göster"""
     return app.send_static_file('index.html')
 
 @app.route('/static/videos/<path:filename>')
 def serve_video(filename):
+    """Video dosyalarını servis et"""
     try:
+        if not os.path.exists(os.path.join(VIDEO_FOLDER, filename)):
+            logger.error(f"Video dosyası bulunamadı: {filename}")
+            return "Video bulunamadı", 404
+
         response = send_from_directory(VIDEO_FOLDER, filename, conditional=True)
-        response.headers['Cache-Control'] = 'public, max-age=31536000'
-        response.headers['Access-Control-Allow-Origin'] = '*'
-        response.headers['Access-Control-Allow-Methods'] = 'GET, OPTIONS'
-        response.headers['Accept-Ranges'] = 'bytes'
+        response.headers.update({
+            'Cache-Control': 'public, max-age=31536000',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET, OPTIONS',
+            'Accept-Ranges': 'bytes',
+            'Content-Type': 'video/mp4'
+        })
         return response
     except Exception as e:
         logger.error(f"Video servis hatası: {str(e)}")
@@ -50,6 +63,7 @@ def serve_video(filename):
 
 @app.route('/static/<path:path>')
 def serve_static(path):
+    """Statik dosyaları servis et"""
     try:
         response = send_from_directory('static', path)
         response.headers['Cache-Control'] = 'public, max-age=31536000'
@@ -60,8 +74,16 @@ def serve_static(path):
 
 @app.after_request
 def add_header(response):
-    response.headers['X-Content-Type-Options'] = 'nosniff'
+    """Güvenlik başlıkları ekle"""
+    response.headers.update({
+        'X-Content-Type-Options': 'nosniff',
+        'X-Frame-Options': 'SAMEORIGIN',
+        'X-XSS-Protection': '1; mode=block'
+    })
     return response
+
+# Vercel için WSGI uygulaması
+application = app
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 3000))
