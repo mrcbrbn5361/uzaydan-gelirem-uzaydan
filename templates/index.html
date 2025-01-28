@@ -343,7 +343,7 @@
                             </div>
                         </div>
                         <video controls preload="metadata" class="video-player">
-                            <source src="{{ url_for('static', filename='videos/' + video_data[selected_lang].filename) }}" type="video/mp4">
+                            <source src="{{ video_data[selected_lang].url }}" type="video/mp4">
                             Tarayıcınız video elementini desteklemiyor.
                         </video>
                     </div>

@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, send_from_directory
+from flask import Flask, render_template, request, send_from_directory, url_for
 import os
 from functools import lru_cache
 from datetime import datetime
@@ -20,6 +20,12 @@ LANGUAGE_NAMES = {
 # Video bilgilerini tutacak sözlük
 videos = {}
 last_scan_time = None
+
+def get_video_url(filename):
+    """Video URL'sini oluştur"""
+    if os.environ.get('VERCEL_URL'):
+        return f"https://{os.environ.get('VERCEL_URL')}/static/videos/{filename}"
+    return url_for('static', filename=f'videos/{filename}')
 
 @lru_cache(maxsize=32)
 def get_video_duration(video_path):
@@ -89,6 +95,7 @@ def scan_videos():
                     if os.path.exists(video_path):
                         videos[video_name][lang] = {
                             'filename': filename,
+                            'url': get_video_url(filename),
                             'size': os.path.getsize(video_path),
                             'duration': get_video_duration(video_path)
                         }
@@ -125,13 +132,20 @@ def index():
 
 @app.route('/static/<path:path>')
 def serve_static(path):
-    return send_from_directory('static', path)
+    response = send_from_directory('static', path)
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    response.headers['Access-Control-Allow-Methods'] = 'GET, OPTIONS'
+    response.headers['Access-Control-Allow-Headers'] = '*'
+    return response
 
 @app.after_request
 def add_header(response):
     """Önbellekleme başlıkları ekle"""
-    response.headers['Cache-Control'] = 'public, max-age=300'
+    if 'Cache-Control' not in response.headers:
+        response.headers['Cache-Control'] = 'public, max-age=31536000'
     response.headers['Access-Control-Allow-Origin'] = '*'
+    response.headers['Access-Control-Allow-Methods'] = 'GET, OPTIONS'
+    response.headers['Access-Control-Allow-Headers'] = '*'
     return response
 
 # Vercel için WSGI uygulaması
