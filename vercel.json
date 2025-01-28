@@ -19,6 +19,7 @@
     "env": {
         "PYTHONPATH": ".",
         "FLASK_ENV": "production",
-        "FLASK_APP": "app.py"
+        "FLASK_APP": "app.py",
+        "CORS_ALLOW_ALL": "true"
     }
 } 
