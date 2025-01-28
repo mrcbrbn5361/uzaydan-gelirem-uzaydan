@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, send_from_directory, url_for, send_file
+from flask import Flask, render_template, request, send_from_directory, url_for, send_file, Response
 from flask_cors import CORS
 import os
 from functools import lru_cache
@@ -54,20 +54,25 @@ def get_absolute_video_path():
         base_dir = os.path.dirname(os.path.abspath(__file__))
         return os.path.join(base_dir, 'static', 'videos')
 
-@app.route('/video/<path:filename>')
+@app.route('/static/videos/<path:filename>')
 def serve_video(filename):
     """Video dosyalarını servis et"""
     try:
-        video_dir = os.path.join('static', 'videos')
-        response = send_from_directory(video_dir, filename)
-        response.headers['Content-Type'] = 'video/mp4'
-        response.headers['Accept-Ranges'] = 'bytes'
-        response.headers['Cache-Control'] = 'public, max-age=31536000'
-        response.headers['Access-Control-Allow-Origin'] = '*'
-        return response
+        video_path = os.path.join('static', 'videos', filename)
+        if not os.path.exists(video_path):
+            logger.error(f"Video dosyası bulunamadı: {video_path}")
+            return "Video bulunamadı", 404
+
+        with open(video_path, 'rb') as video_file:
+            response = Response(video_file.read())
+            response.headers['Content-Type'] = 'video/mp4'
+            response.headers['Accept-Ranges'] = 'bytes'
+            response.headers['Cache-Control'] = 'public, max-age=31536000'
+            response.headers['Access-Control-Allow-Origin'] = '*'
+            return response
     except Exception as e:
         logger.error(f"Video servis hatası: {str(e)}")
-        return f"Video bulunamadı: {filename}", 404
+        return f"Video servis edilemedi: {str(e)}", 500
 
 @lru_cache(maxsize=32)
 def get_video_duration(video_path):
