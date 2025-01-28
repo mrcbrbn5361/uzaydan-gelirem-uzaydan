@@ -9,7 +9,11 @@
     "routes": [
         {
             "src": "/static/videos/(.*)",
-            "dest": "app.py"
+            "dest": "app.py",
+            "headers": {
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Methods": "GET, OPTIONS"
+            }
         },
         {
             "src": "/(.*)",
@@ -18,7 +22,7 @@
     ],
     "env": {
         "PYTHONPATH": ".",
-        "FLASK_ENV": "production",
+        "FLASK_ENV": "development",
         "FLASK_APP": "app.py",
         "CORS_ALLOW_ALL": "true"
     }
