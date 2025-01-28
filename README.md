@@ -1,39 +1,45 @@
-# Video Dil Seçimi Uygulaması
+# Çok Dilli Video Galerisi
 
-Bu uygulama, farklı dillerdeki videoları tek bir arayüzde göstermeyi ve dil seçimine göre video değiştirmeyi sağlar.
+Modern ve kullanıcı dostu bir video galerisi uygulaması. Farklı dillerdeki videoları kolayca yönetmenizi ve izlemenizi sağlar.
 
 ## Özellikler
 
-- Modern ve kullanıcı dostu arayüz
-- Dil bazlı video seçimi
-- Responsive tasarım
-- Otomatik video yükleme
+- 🎥 Çoklu dil desteği
+- 🎨 Modern ve duyarlı tasarım
+- 🌓 Karanlık tema
+- 📱 Mobil uyumlu
+- ⚡ Hızlı video yükleme
+- 🔄 Otomatik dil algılama
 
 ## Kurulum
 
-1. Gereksinimleri yükleyin:
+1. Depoyu klonlayın:
+```bash
+git clone https://github.com/kullaniciadi/video-galeri.git
+cd video-galeri
+```
+
+2. Gerekli paketleri yükleyin:
 ```bash
 pip install -r requirements.txt
 ```
 
-2. Uygulamayı çalıştırın:
+3. Uygulamayı çalıştırın:
 ```bash
 python app.py
 ```
 
-## Video Ekleme
+## Video Formatı
 
-Videoları `videos` klasörüne ekleyin. Video dosya adları dil bilgisini içermelidir (örnek: turkce.mp4, ingilizce.mp4).
+Videolarınızı `static/videos` klasörüne aşağıdaki formatta yükleyin:
+- `video_adi_tr.mp4` (Türkçe versiyon)
+- `video_adi_en.mp4` (İngilizce versiyon)
+- `video_adi_fr.mp4` (Fransızca versiyon)
 
-## Deployment
+## Canlı Demo
 
-Bu uygulama Vercel üzerinde çalışacak şekilde yapılandırılmıştır. Deployment için:
-
-1. GitHub'a yükleyin
-2. Vercel'de yeni proje oluşturun
-3. GitHub reposunu seçin
-4. Otomatik olarak deploy edilecektir
+[Vercel üzerinde canlı demo](https://video-galeri.vercel.app)
 
 ## Lisans
 
-MIT 
+Bu proje MIT lisansı altında lisanslanmıştır. 
